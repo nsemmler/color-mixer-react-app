@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ColorList from './components/ColorList'
 import ColorForm from './components/ColorForm'
+import ColorMixer from './components/ColorMixer'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 class App extends Component {
@@ -8,15 +9,26 @@ class App extends Component {
     super(props)
     this.state = {
       colors: [
-        { value: '#ff0000', name: 'red' },
-        { value: '#00ff00', name: 'green' },
-        { value: '#0000ff', name: 'blue' }
+        { value: '#ff0000', name: 'Red', selected: false },
+        { value: '#00ff00', name: 'Green', selected: false },
+        { value: '#0000ff', name: 'Blue', selected: false }
       ]
     }
   }
 
+  toggleColorSelection = (index) => {
+    const color = this.state.colors[index]
+    color.selected = !color.selected
+    this.setState({ ...this.state.colors })
+  }
+
   addNewColor = (color) => {
-    this.setState({ colors: [ ...this.state.colors, color ] })
+    this.setState({
+      colors: [
+        ...this.state.colors,
+        { ...color, selected: false }
+      ]
+    })
   }
 
   render() {
@@ -32,9 +44,11 @@ class App extends Component {
           <div className="row">
             <div className="col-3">
               <h2 className="h4 text-center mb-4">Colors</h2>
-              <ColorList colors={ this.state.colors } />
+              <ColorList colors={ this.state.colors } handleToggleColorSelection={ this.toggleColorSelection } />
             </div>
             <div className="col">
+              <h2 className="h4 text-center mb-4">Mix Result</h2>
+              <ColorMixer colors={ this.state.colors } />
             </div>
             <div className="col-3">
               <h2 className="h4 text-center mb-4">Add a Color</h2>
