@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ColorList from './components/ColorList'
+import ColorForm from './components/ColorForm'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 class App extends Component {
@@ -14,6 +15,10 @@ class App extends Component {
     }
   }
 
+  addNewColor = (color) => {
+    this.setState({ colors: [ ...this.state.colors, color ] })
+  }
+
   render() {
     return (
       <main>
@@ -25,13 +30,15 @@ class App extends Component {
         </div>
         <div className="container">
           <div className="row">
-            <div className="col">
+            <div className="col-3">
               <h2 className="h4 text-center mb-4">Colors</h2>
               <ColorList colors={ this.state.colors } />
             </div>
             <div className="col">
             </div>
-            <div className="col">
+            <div className="col-3">
+              <h2 className="h4 text-center mb-4">Add a Color</h2>
+              <ColorForm handleAddNewColor={ this.addNewColor } />
             </div>
           </div>
         </div>
