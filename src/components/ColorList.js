@@ -1,9 +1,12 @@
 import React from 'react'
 
-const ColorList = ({ colors }) => {
+// onClick={ () => selectColor(i) } rather than:
+// onClick={ selectColor(i) } b/c it takes a fn, not an invoked fn
+const ColorList = ({ colors, selectColor }) => {
   const lis = colors.map((color, i) => {
     const style = { backgroundColor: color.selected ? color.value : 'white' }
     return <li
+      onClick={ () => selectColor(i) }
       className="list-group-item text-dark"
       key={ i }
       style={ style }>{ color.name }</li>
